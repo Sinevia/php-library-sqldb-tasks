@@ -57,7 +57,7 @@ $tf->test("Testing tasks", function ($tf) {
 $tf->test("Testing task queue", function ($tf) {
     db()->debug = true;
     $task = new \Sinevia\Tasks\Task();
-    $task->set('Alias', 'App\Task\TestTask');
+    $task->set('Alias', 'TestTask');
     $task->save();
 
     $queuedTask = $task->queue('TestTask');

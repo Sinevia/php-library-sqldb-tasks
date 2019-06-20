@@ -73,7 +73,11 @@ $tf->test("Testing task queue", function ($tf) {
 $tf();
 
 class TestTask {
+    
+    public $queuedTask = null;
+    
     function handle($parameters = []) {
+        $queuedTask->setParameter('test', 'successful');
     }
 }
 

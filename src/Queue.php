@@ -193,4 +193,46 @@ class Queue extends \Sinevia\ActiveRecord
         $this->set('StartedAt', date('Y-m-d H:i:s'));
         $this->save();
     }
+    
+    public static function process($queuedId)
+    {
+        $queued = static::find($queuedId);
+
+        $status = $queued->get('Status');
+
+        if ($status != static::STATUS_QUEUED) {
+            $queued->fail('Not Queued and CANNOT process');
+            return fasle;
+        }
+
+        $className = $queued->get('TaskAlias');
+
+        if (class_exists($className) == false) {
+            $queued->fail('Class "' . $className . '" does not exist');
+            return false;
+        }
+
+        $classInstance = new $className;
+
+        if (method_exists($classInstance, 'handle') == false) {
+            $queued->fail('Method "handle" does not exist in class "' . $className . '"');
+            return false;
+        }
+
+        try {
+            $result = $classInstance->handle($queued->getParameters());
+            if ($result == false) {
+                $queued->fail();
+                return false;
+            } else {
+                $queued->complete();
+                return true;
+            }
+        } catch (\Exception $e) {
+            $queued->fail($e->getMessage() . ' ' . $e->getFile() . ' ' . $e->getLine());
+            //$queued->fail($e->getTraceAsString());
+            return false;
+        }
+
+    }
 }

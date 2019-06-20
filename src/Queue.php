@@ -218,6 +218,8 @@ class Queue extends \Sinevia\ActiveRecord
             $queued->fail('Method "handle" does not exist in class "' . $className . '"');
             return false;
         }
+        
+        $classInstance->queuedTask = $queued;
 
         try {
             $result = $classInstance->handle($queued->getParameters());

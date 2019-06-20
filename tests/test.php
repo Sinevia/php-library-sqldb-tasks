@@ -2,16 +2,26 @@
 define("ENVIRONMENT", 'testing');
 require dirname(__DIR__) . '/vendor/autoload.php';
 
-/*
- * Settings here or get overwritten
+/**
+ * Returns a database instance
+ * @return \Sinevia\SqlDb
  */
-\Sinevia\Registry::set("ENVIRONMENT", "testing");
-\Sinevia\Registry::set("DB_TYPE", "sqlite");
-\Sinevia\Registry::set("DB_HOST", ":memory:");
-\Sinevia\Registry::set("DB_NAME", ":memory:");
-\Sinevia\Registry::set("DB_USER", "test");
-\Sinevia\Registry::set("DB_PASS", "");
-include dirname(__DIR__) . '/router.php';
+function db()
+{
+    static $db = null;
+
+    if (is_null($db)) {
+        $db = new \Sinevia\SqlDb(array(
+            'database_type' => 'sqlite',
+            'database_host' => ":memory:",
+            'database_name' => ":memory:",
+            'database_user' => "test",
+            'database_pass' => "",
+        ));
+    }
+
+    return $db;
+}
 
 function get($path, $data = [])
 {
@@ -43,7 +53,7 @@ $tf->beforeEach(function ($tf) {
 
 $tf->test("Testing tasks", function ($tf) {
     //db()->debug = true;
-    $task = new \App\Models\Tasks\Task();
+    $task = new \Sinevia\Tasks\Task();
     $task->set('Alias', 'TEST');
     $task->save();
 
@@ -65,7 +75,7 @@ $tf->test("Testing tasks", function ($tf) {
 
 $tf->test("Testing task queue", function ($tf) {
     db()->debug = true;
-    $task = new \App\Models\Tasks\Task();
+    $task = new \Sinevia\Tasks\Task();
     $task->set('Alias', 'App\Task\TestTask');
     $task->save();
 
@@ -73,7 +83,7 @@ $tf->test("Testing task queue", function ($tf) {
     $tf->assertTrue(is_object($task));
     $tf->assertTrue(is_object($queuedTask));
 
-    $tf->assertEquals($queuedTask->get('Status'), \App\Models\Tasks\Queue::STATUS_QUEUED);
+    $tf->assertEquals($queuedTask->get('Status'), \Sinevia\Queue::STATUS_QUEUED);
 
     \App\Helpers\Queue::process($queuedTask->get('Id'));
     db()->debug = false;

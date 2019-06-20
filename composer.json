@@ -18,6 +18,6 @@
         "sinevia/php-library-uid": ">=v1.0.0"
     },
     "require-dev": {
-        "sinevia/php-library-testify": ">=1.0.0"
+        "bafs/testify": "^1.0"
     }
 }

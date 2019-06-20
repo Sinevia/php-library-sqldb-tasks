@@ -207,7 +207,7 @@ class Queue extends \Sinevia\ActiveRecord
 
         if ($status != static::STATUS_QUEUED) {
             $queued->fail('Not Queued and CANNOT process');
-            return fasle;
+            return false;
         }
 
         $className = $queued->get('TaskAlias');

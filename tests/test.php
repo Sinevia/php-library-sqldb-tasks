@@ -23,36 +23,17 @@ function db()
     return $db;
 }
 
-function get($path, $data = [])
-{
-    $_REQUEST = $data;
-    $_SERVER['REQUEST_METHOD'] = 'GET';
-    $_SERVER['REQUEST_URI'] = $path;
-    return main();
-}
-
-function post($path, $data = [])
-{
-    $_REQUEST = $data;
-    $_SERVER['REQUEST_METHOD'] = 'GET';
-    $_SERVER['REQUEST_URI'] = $path;
-    return main();
-}
-
-\Sinevia\Migrate::setDatabase(db());
 //\App\Models\Content\Node::getDatabase()->debug = true;
 
 $tf = new \Testify\Testify("My Test Suite");
 
 $tf->beforeEach(function ($tf) {
-    \Sinevia\Migrate::setDirectoryMigration(\Sinevia\Registry::get('DIR_MIGRATIONS_DIR'));
-    \Sinevia\Migrate::setDatabase(db());
-    \Sinevia\Migrate::$verbose = false;
-    \Sinevia\Migrate::up();
+    \Sinevia\Tasks\Task::createTable();
+    \Sinevia\Tasks\Queue::createTable();
 });
 
 $tf->test("Testing tasks", function ($tf) {
-    //db()->debug = true;
+    db()->debug = true;
     $task = new \Sinevia\Tasks\Task();
     $task->set('Alias', 'TEST');
     $task->save();
@@ -62,15 +43,15 @@ $tf->test("Testing tasks", function ($tf) {
     $tf->assertTrue(is_object($queuedTask));
 
     $queuedTask->processing();
-    $tf->assertEquals($queuedTask->get('Status'), \App\Models\Tasks\Queue::STATUS_PROCESSING);
+    $tf->assertEquals($queuedTask->get('Status'), \Sinevia\Tasks\Queue::STATUS_PROCESSING);
 
     $queuedTask->complete();
-    $tf->assertEquals($queuedTask->get('Status'), \App\Models\Tasks\Queue::STATUS_COMPLETED);
+    $tf->assertEquals($queuedTask->get('Status'), \Sinevia\Tasks\Queue::STATUS_COMPLETED);
 
     $queuedTask->fail();
-    $tf->assertEquals($queuedTask->get('Status'), \App\Models\Tasks\Queue::STATUS_FAILED);
+    $tf->assertEquals($queuedTask->get('Status'), \Sinevia\Tasks\Queue::STATUS_FAILED);
 
-    //db()->debug = false;
+    db()->debug = false;
 });
 
 $tf->test("Testing task queue", function ($tf) {
@@ -85,7 +66,7 @@ $tf->test("Testing task queue", function ($tf) {
 
     $tf->assertEquals($queuedTask->get('Status'), \Sinevia\Queue::STATUS_QUEUED);
 
-    \App\Helpers\Queue::process($queuedTask->get('Id'));
+    \Sinevia\Queue::process($queuedTask->get('Id'));
     db()->debug = false;
 });
 

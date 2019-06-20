@@ -73,6 +73,12 @@ $tf->test("Testing task queue", function ($tf) {
     
     $tf->assertTrue(is_array($queuedTask->getParameters());
     $tf->assertEquals($queuedTask->getParameter('test'), 'successful');
+                    
+    var_dump($queuedTask->getOutput();
+    var_dump($queuedTask->getOutputKey('test'));
+    
+    $tf->assertTrue(is_array($queuedTask->getOutput());
+    $tf->assertEquals($queuedTask->getOutputKey('test'), 'successful');
     
     db()->debug = false;
 });
@@ -85,6 +91,7 @@ class TestTask {
     
     function handle($parameters = []) {
         $this->queuedTask->setParameter('test', 'successful');
+        $this->queuedTask->setOutputKey('test', 'successful');
     }
 }
 

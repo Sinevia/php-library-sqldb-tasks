@@ -14,7 +14,7 @@
         ]
     },
     "require": {
-        "sinevia/php-library-sqldb": ">=v3.5.0",
+        "sinevia/php-library-sqldb": ">=v3.6.0",
         "sinevia/php-library-uid": ">=v1.0.0"
     },
     "require-dev": {

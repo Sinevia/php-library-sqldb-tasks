@@ -2,7 +2,7 @@
 
 namespace Sinevia\Tasks;
 
-class Queue extends Sinevia\ActiveRecord
+class Queue extends \Sinevia\ActiveRecord
 {
     public static $keys = ['Id'];
     public static $table = 'snv_tasks_queue';

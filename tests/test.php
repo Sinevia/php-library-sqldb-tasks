@@ -60,7 +60,7 @@ $tf->test("Testing task queue", function ($tf) {
     $task->set('Alias', 'App\Task\TestTask');
     $task->save();
 
-    $queuedTask = $task->queue('App\Task\TestTask');
+    $queuedTask = $task->queue('TestTask');
     $tf->assertTrue(is_object($task));
     $tf->assertTrue(is_object($queuedTask));
 

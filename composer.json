@@ -1,0 +1,23 @@
+{
+    "name": "sinevia/php-sqldb-tasks",
+    "description": "PHP SqlDb Tasks",
+    "authors": [
+        {
+            "name": "Sinevia Ltd",
+            "email": "info@sinevia.com"
+        }
+    ],
+    "autoload": {
+        "files": [
+            "src/Task.php",
+            "src/Queue.php"
+        ]
+    },
+    "require": {
+        "sinevia/php-library-sqldb": ">=v2.9.0",
+        "sinevia/php-library-uid": ">=v1.0.0"
+    },
+    "require-dev": {
+        "sinevia/php-library-testify": ">=1.0.0"
+    }
+}

@@ -70,6 +70,7 @@ class Task extends \Sinevia\ActiveRecord
         $queuedTask->set('Attempts', 0);
         $queuedTask->set('Details', '');
         //$queuedTask->set('Details', $id . '.task.log.txt');
+        $queuedTask->set('Output', json_encode([]));
         $queuedTask->save();
 
         return $queuedTask;

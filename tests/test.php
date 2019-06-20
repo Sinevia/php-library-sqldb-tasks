@@ -28,8 +28,8 @@ function db()
 $tf = new \Testify\Testify("My Test Suite");
 
 $tf->beforeEach(function ($tf) {
-    \Sinevia\Tasks\Task::createTable();
-    \Sinevia\Tasks\Queue::createTable();
+    \Sinevia\Tasks\Task::tableCreate();
+    \Sinevia\Tasks\Queue::tableCreate();
 });
 
 $tf->test("Testing tasks", function ($tf) {
@@ -71,4 +71,9 @@ $tf->test("Testing task queue", function ($tf) {
 });
 
 $tf();
+
+class TestTask {
+    function handle($parameters = []) {
+    }
+}
 

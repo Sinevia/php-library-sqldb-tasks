@@ -116,7 +116,11 @@ class Queue extends \Sinevia\ActiveRecord
 
     public function getParameters()
     {
+        var_dump($this->get('Parameters'));
         $parameters = json_decode($this->get('Parameters'), true);
+        
+        var_dump($parameters);
+        
         if ($parameters == false) {
             return [];
         }

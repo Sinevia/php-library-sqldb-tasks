@@ -68,6 +68,8 @@ $tf->test("Testing task queue", function ($tf) {
 
     \Sinevia\Tasks\Queue::process($queuedTask->get('Id'));
     
+    var_dump($queuedTask->getParameter('test'));
+    
     $tf->assertEquals($queuedTask->getParameter('test'), 'successful');
     
     db()->debug = false;

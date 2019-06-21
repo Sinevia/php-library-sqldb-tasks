@@ -198,7 +198,7 @@ class Queue extends \Sinevia\ActiveRecord
     /**
      * Processes a task by ID
      */
-    public static function processTaskbyId($queuedId)
+    public static function processQueuedTaskById($queuedId)
     {
         $queued = static::find($queuedId);
 

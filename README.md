@@ -1,4 +1,4 @@
-# php-sqlitedb-tasks
+# PHP Tasks for SqlDb
 
 Persistent task queue for SqlDb.
 

@@ -66,7 +66,7 @@ $tf->test("Testing task queue", function ($tf) {
 
     $tf->assertEquals($queuedTask->get('Status'), \Sinevia\Tasks\Queue::STATUS_QUEUED);
 
-    \Sinevia\Tasks\Queue::process($queuedTask->get('Id'));
+    \Sinevia\Tasks\Queue::processQueuedTaskById($queuedTask->get('Id'));
     
     var_dump($queuedTask->getParameters());
     var_dump($queuedTask->getParameter('test'));

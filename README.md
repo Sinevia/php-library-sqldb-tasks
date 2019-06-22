@@ -36,3 +36,17 @@ if ($task == null){
 $result = \Sinevia\Tasks\Queue::processQueuedTaskById($task->get('Id'));
 return $result;
 ```
+
+## Task Handlers ##
+
+```
+class HelloWorldTask extends \Sinevia\Tasks\BaseHandler {
+    function handle(array $parameters){
+        $this->queuedTask->addDetails('Adding Hello World to Output Parameters');
+        
+        $this->queuedTask->setOutputKey('hello','world');
+        
+        return true;
+    }
+}
+```

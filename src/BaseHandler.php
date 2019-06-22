@@ -3,8 +3,10 @@
 namespace Sinevia\Tasks;
 
 abstract class BaseHandler {
+    /**
+     * @var Queue
+     */
     public $queuedTask = null;
     
-    abstract handle($parameters){
-    }
+    abstract function handle(array $parameters);
 }

@@ -10,7 +10,8 @@
     "autoload": {
         "files": [
             "src/Task.php",
-            "src/Queue.php"
+            "src/Queue.php",
+            "src/BaseHandler.php"
         ]
     },
     "require": {

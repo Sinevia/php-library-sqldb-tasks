@@ -2,6 +2,13 @@
 
 Persistent task queue for SqlDb.
 
+[![Build status][build-status-master-image]][build-status-master]
+[![GitHub stars](https://img.shields.io/github/stars/Sinevia/php-library-sqldb-tasks.svg?style=social&label=Star&maxAge=2592000)](https://GitHub.com/Sinevia/php-library-sqldb-tasks/stargazers/)
+[![HitCount](http://hits.dwyl.io/Sinevia/badges.svg)](http://hits.dwyl.io/Sinevia/badges)
+
+[build-status-master]: https://travis-ci.com/Sinevia/php-library-sqldb-tasks
+[build-status-master-image]: https://api.travis-ci.com/Sinevia/php-library-sqldb-tasks.svg?branch=master
+
 ## Features ##
 
 - Asynchronious (multiple threads/processes) or synchronious (sigle thread/process) execution
